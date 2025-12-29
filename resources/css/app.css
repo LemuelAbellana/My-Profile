@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply transition-colors duration-300;
+    }
+    
+    /* Client Mode Styles */
+    body.client-mode {
+        @apply bg-white text-gray-900;
+    }
+    
+    /* Dev Mode Styles */
+    body.dev-mode {
+        @apply bg-terminal-bg text-terminal-text font-mono;
+    }
+}
+
+@layer components {
+    /* Matrix Rain Animation */
+    .matrix-rain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.1;
+    }
+    
+    /* Wireframe Overlay for Dev Mode */
+    .dev-wireframe {
+        outline: 1px dashed #16a34a;
+        outline-offset: -1px;
+        position: relative;
+    }
+    
+    .dev-wireframe::before {
+        content: attr(data-component);
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 10px;
+        background: #16a34a;
+        color: #0a0a0a;
+        padding: 2px 4px;
+        z-index: 10;
+    }
+    
+    /* Status Badges */
+    .status-badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+    
+    .status-badge.green {
+        @apply bg-green-100 text-green-800;
+    }
+    
+    .status-badge.blue {
+        @apply bg-blue-100 text-blue-800;
+    }
+    
+    .status-badge.yellow {
+        @apply bg-yellow-100 text-yellow-800;
+    }
+    
+    .status-badge.red {
+        @apply bg-red-100 text-red-800;
+    }
+    
+    .status-badge.gray {
+        @apply bg-gray-100 text-gray-800;
+    }
+}
+
+/* Custom Scrollbar for Kanban */
+.kanban-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.kanban-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.kanban-scroll::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.kanban-scroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

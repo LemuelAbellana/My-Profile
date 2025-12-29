@@ -1,53 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
     body {
-        @apply transition-colors duration-300;
+        @apply bg-porcelain text-slate-deep font-sans antialiased;
+        background-image: 
+            linear-gradient(to right, rgba(25, 118, 210, 0.08) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(25, 118, 210, 0.08) 1px, transparent 1px);
+        background-size: 100px 100px;
+        background-position: -1px -1px;
     }
     
-    /* Client Mode Styles */
-    body.client-mode {
-        @apply bg-white text-gray-900;
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-heading font-bold tracking-tight;
     }
     
-    /* Dev Mode Styles */
-    body.dev-mode {
-        @apply bg-terminal-bg text-terminal-text font-mono;
+    /* Precision Typography */
+    .text-technical {
+        @apply font-mono text-sm tracking-wide;
     }
 }
 
 @layer components {
-    /* Matrix Rain Animation */
-    .matrix-rain {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-        opacity: 0.1;
-    }
-    
-    /* Wireframe Overlay for Dev Mode */
-    .dev-wireframe {
-        outline: 1px dashed #16a34a;
-        outline-offset: -1px;
+    /* Blueprint Annotation Lines */
+    .annotation-line {
         position: relative;
     }
     
-    .dev-wireframe::before {
-        content: attr(data-component);
+    .annotation-line::after {
+        content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        font-size: 10px;
-        background: #16a34a;
-        color: #0a0a0a;
-        padding: 2px 4px;
-        z-index: 10;
+        width: 40px;
+        height: 1px;
+        background: linear-gradient(to right, theme('colors.blueprint.DEFAULT'), transparent);
+        top: 50%;
+        right: -50px;
+    }
+    
+    /* Exploded Layer System */
+    .layer-container {
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+    
+    .layer {
+        transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transform-origin: center center;
+    }
+    
+    .layer-front {
+        transform: translateZ(0px);
+    }
+    
+    .layer-middle {
+        transform: translateZ(-50px);
+    }
+    
+    .layer-back {
+        transform: translateZ(-100px);
+    }
+    
+    /* When deconstructed */
+    .deconstructed .layer-front {
+        transform: translateZ(100px) translateY(-30px);
+    }
+    
+    .deconstructed .layer-middle {
+        transform: translateZ(0px);
+    }
+    
+    .deconstructed .layer-back {
+        transform: translateZ(-100px) translateY(30px);
+    }
+    
+    /* Technical Card with Schematic Lines */
+    .tech-card {
+        @apply bg-white border-2 border-blueprint-200 relative;
+        box-shadow: 
+            4px 4px 0 0 rgba(25, 118, 210, 0.1),
+            8px 8px 0 0 rgba(25, 118, 210, 0.05);
+    }
+    
+    .tech-card::before {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        border: 1px dashed theme('colors.blueprint.200');
+        pointer-events: none;
+    }
+    
+    /* Postman-style Request Panel */
+    .api-panel {
+        @apply bg-white border-2 border-slate-deep-800 font-mono text-sm;
+    }
+    
+    .api-method {
+        @apply inline-block px-3 py-1 text-xs font-bold rounded;
+    }
+    
+    .api-method-post {
+        @apply bg-safety-orange text-white;
+    }
+    
+    .api-method-get {
+        @apply bg-electric-blue text-white;
+    }
+    
+    /* Test Status Indicators */
+    .test-pending {
+        @apply text-gray-400;
+    }
+    
+    .test-pass {
+        @apply text-emerald animate-test-pass;
+    }
+    
+    .test-fail {
+        @apply text-safety-orange;
+    }
+    
+    /* Grid Snap Elements */
+    .grid-snap {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: theme('spacing.8');
     }
     
     /* Status Badges */

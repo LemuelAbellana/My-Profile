@@ -8,77 +8,133 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-    <!-- Hero Section -->
-    <section class="py-20" data-component="HeroSection">
+    <!-- Hero Section with Exploded Architecture -->
+    <section id="specs" class="pt-32 pb-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <!-- Client Mode Content -->
-                    <div class="client-only">
-                        <h1 class="text-5xl font-bold mb-4 text-gray-900">
-                            Building Reliable Digital Products
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Text Content -->
+                <div class="space-y-8">
+                    <div>
+                        <p class="text-blueprint font-mono text-sm mb-2">/** SYSTEM SPECIFICATIONS */</p>
+                        <h1 class="text-6xl font-heading font-bold text-slate-deep-900 leading-tight mb-6">
+                            Full-Stack<br/>
+                            <span class="text-blueprint">Engineering</span><br/>
+                            Architecture
                         </h1>
-                        <p class="text-xl text-gray-600 mb-8">
-                            I bridge the gap between business goals and technical execution.
+                        <p class="text-xl text-slate-deep-600 leading-relaxed">
+                            Building robust software systems through the complete development lifecycle—from strategic planning to quality deployment.
                         </p>
-                        <a href="#portfolio" 
-                           class="inline-block px-8 py-3 bg-client-500 text-white rounded-lg font-semibold hover:bg-client-600 transition">
-                            View Portfolio
-                        </a>
                     </div>
-
-                    <!-- Dev Mode Content -->
-                    <div class="dev-only hidden">
-                        <h1 class="text-4xl font-bold mb-4 text-terminal-text font-mono">
-                            class Developer extends Human<br>
-                            implements PM, QA {
-                        </h1>
-                        <p class="text-lg text-terminal-text mb-8 font-mono">
-                            public $status = 'Ready to Deploy';<br>
-                            // Test Coverage: 100%
-                        </p>
-                        <button 
-                           onclick="window.location.href='#portfolio'"
-                           class="inline-block px-8 py-3 bg-dev-500 text-terminal-bg rounded-lg font-semibold hover:bg-dev-600 transition font-mono">
-                            echo "View Source";
-                        </button>
+                    
+                    <!-- Skill Badges -->
+                    <div class="flex flex-wrap gap-3">
+                        <div class="tech-card px-4 py-2">
+                            <span class="text-sm font-mono text-electric-blue">PM</span>
+                            <span class="text-sm text-slate-deep-700 ml-2">Strategic Architect</span>
+                        </div>
+                        <div class="tech-card px-4 py-2">
+                            <span class="text-sm font-mono text-blueprint">DEV</span>
+                            <span class="text-sm text-slate-deep-700 ml-2">Laravel Engineer</span>
+                        </div>
+                        <div class="tech-card px-4 py-2">
+                            <span class="text-sm font-mono text-safety-orange">QA</span>
+                            <span class="text-sm text-slate-deep-700 ml-2">Quality Controller</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Profile Image -->
-                <div class="relative">
-                    <div class="client-only">
-                        <img src="/images/profile.jpg" 
-                             alt="Professional Portrait" 
-                             class="rounded-lg shadow-2xl w-full"
-                             onerror="this.src='https://ui-avatars.com/api/?name=Your+Name&size=500&background=3b82f6&color=fff'">
+                <!-- Right: 3D Layered Deconstruct -->
+                <div class="layer-container relative h-[500px]" :class="{ 'deconstructed': deconstructed }">
+                    <!-- Front Layer: PM -->
+                    <div class="layer layer-front absolute inset-0 bg-white border-2 border-electric-blue rounded-lg p-8 shadow-xl">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-electric-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-heading font-bold text-lg text-electric-blue mb-2">PROJECT MANAGER</h3>
+                                <p class="text-sm text-slate-deep-700 leading-relaxed">Strategic planning, stakeholder alignment, and roadmap execution with Agile/Scrum methodologies.</p>
+                                <div class="mt-4 space-y-2 text-xs font-mono text-slate-deep-600">
+                                    <div>✓ Sprint Planning & Execution</div>
+                                    <div>✓ Risk Assessment & Mitigation</div>
+                                    <div>✓ Resource Optimization</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="dev-only hidden relative">
-                        <img src="/images/profile.jpg" 
-                             alt="Developer Portrait" 
-                             class="rounded-lg shadow-2xl w-full opacity-80"
-                             onerror="this.src='https://ui-avatars.com/api/?name=Your+Name&size=500&background=16a34a&color=0a0a0a'">
-                        <div class="absolute inset-0 border-2 border-dev-500 rounded-lg" 
-                             style="background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(22, 163, 74, 0.1) 2px, rgba(22, 163, 74, 0.1) 4px);"></div>
+
+                    <!-- Middle Layer: DEV -->
+                    <div class="layer layer-middle absolute inset-0 bg-white border-2 border-blueprint rounded-lg p-8 shadow-xl">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blueprint rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-heading font-bold text-lg text-blueprint mb-2">DEVELOPER</h3>
+                                <p class="text-sm text-slate-deep-700 leading-relaxed">Full-stack development with Laravel, Livewire, and modern JavaScript frameworks.</p>
+                                <div class="mt-4 bg-slate-deep-900 rounded p-3 text-xs font-mono text-emerald">
+                                    <div>class Engineer {</div>
+                                    <div class="ml-4">public $stack = [</div>
+                                    <div class="ml-8">'Laravel', 'Livewire',</div>
+                                    <div class="ml-8">'Alpine.js', 'Tailwind'</div>
+                                    <div class="ml-4">];</div>
+                                    <div>}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Back Layer: QA -->
+                    <div class="layer layer-back absolute inset-0 bg-white border-2 border-safety-orange rounded-lg p-8 shadow-xl">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-safety-orange rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-heading font-bold text-lg text-safety-orange mb-2">QA ENGINEER</h3>
+                                <p class="text-sm text-slate-deep-700 leading-relaxed">Comprehensive testing strategies ensuring reliability and performance.</p>
+                                <div class="mt-4 space-y-2">
+                                    <div class="flex items-center text-xs">
+                                        <span class="test-pass mr-2">✓</span>
+                                        <span class="text-slate-deep-600">Unit Tests: 98% Coverage</span>
+                                    </div>
+                                    <div class="flex items-center text-xs">
+                                        <span class="test-pass mr-2">✓</span>
+                                        <span class="text-slate-deep-600">Integration Tests: Passing</span>
+                                    </div>
+                                    <div class="flex items-center text-xs">
+                                        <span class="test-pass mr-2">✓</span>
+                                        <span class="text-slate-deep-600">Performance: Lighthouse 95+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Kanban Career Section -->
-    <section id="about" class="py-20 bg-gray-50" data-component="AboutSection">
+    <!-- Portfolio Section with Semantic Zoom -->
+    <section id="portfolio" class="py-20 bg-white/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold mb-12 text-center">
-                <span class="client-only">My Journey</span>
-                <span class="dev-only hidden">// Career Timeline</span>
-            </h2>
-            
+            <div class="mb-16">
+                <p class="text-blueprint font-mono text-sm mb-2">/** PROJECT SHOWCASE */</p>
+                <h2 class="text-4xl font-heading font-bold text-slate-deep-900 mb-4">Featured Projects</h2>
+                <p class="text-slate-deep-600 max-w-2xl">Each project demonstrates full-cycle involvement from requirements gathering to deployment.</p>
+            </div>
+
             <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
-[$__name, $__params] = $__split('kanban-career', []);
+[$__name, $__params] = $__split('portfolio-grid');
 
 $key = null;
 
@@ -97,19 +153,20 @@ if (isset($__slots)) unset($__slots);
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20" data-component="PortfolioSection">
+    <!-- Career Timeline -->
+    <section id="career" class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold mb-12 text-center">
-                <span class="client-only">Featured Projects</span>
-                <span class="dev-only hidden">// $projects->where('quality', 'verified')</span>
-            </h2>
-            
+            <div class="mb-16">
+                <p class="text-blueprint font-mono text-sm mb-2">/** PROFESSIONAL TIMELINE */</p>
+                <h2 class="text-4xl font-heading font-bold text-slate-deep-900 mb-4">Career Path</h2>
+                <p class="text-slate-deep-600 max-w-2xl">Progressive growth across technical and leadership roles.</p>
+            </div>
+
             <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
-[$__name, $__params] = $__split('portfolio-grid', []);
+[$__name, $__params] = $__split('kanban-career');
 
 $key = null;
 
@@ -128,19 +185,20 @@ if (isset($__slots)) unset($__slots);
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-50" data-component="ContactSection">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold mb-12 text-center">
-                <span class="client-only">Get In Touch</span>
-                <span class="dev-only hidden">// Submit Support Ticket</span>
-            </h2>
-            
+    <!-- API Contact Section -->
+    <section id="contact" class="py-20 bg-white/50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 text-center">
+                <p class="text-blueprint font-mono text-sm mb-2">/** CONTACT ENDPOINT */</p>
+                <h2 class="text-4xl font-heading font-bold text-slate-deep-900 mb-4">Initiate Connection</h2>
+                <p class="text-slate-deep-600">Submit a request through the API interface below.</p>
+            </div>
+
             <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
-[$__name, $__params] = $__split('support-ticket', []);
+[$__name, $__params] = $__split('api-contact');
 
 $key = null;
 

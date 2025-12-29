@@ -1,4 +1,4 @@
-# Living Release Note Portfolio
+# My Profile
 
 ## Project Overview
 A dual-mode portfolio website built with Laravel and Livewire 3, showcasing IT student expertise in Programming, Project Management, and Quality Assurance.

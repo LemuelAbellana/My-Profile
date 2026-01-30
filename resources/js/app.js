@@ -20,7 +20,7 @@ document.addEventListener('livewire:init', () => {
     }));
 });
 
-// Initialize AOS (Animate On Scroll)
+// Initialize on page load (AOS removed)
 document.addEventListener('DOMContentLoaded', () => {
     // Prevent auto-scroll on initial page load
     if (window.location.hash) {
@@ -34,14 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         document.documentElement.classList.add('js-ready');
     }
-    
-    AOS.init({
-        duration: 800,
-        easing: 'ease-out-cubic',
-        once: true,
-        offset: 100,
-        delay: 0,
-    });
     
     // GSAP Scroll Animations - Advanced Storytelling
     initScrollAnimations();
@@ -153,10 +145,8 @@ function initScrollAnimations() {
     });
 }
 
-// Refresh AOS on Livewire navigation (SPA-style)
+// Re-initialize on Livewire navigation (SPA-style)
 document.addEventListener('livewire:navigated', () => {
-    AOS.refresh();
-    
     // Re-initialize typewriter if navigated back to homepage
     if (window.initTypewriter) {
         window.initTypewriter();

@@ -47,81 +47,111 @@
         </div>
     </div>
 
-    <!-- Projects Bento Grid with Wire Transition -->
-    <div class="bento-container" wire:transition>
-        @forelse($portfolios as $index => $portfolio)
-            @php
-                // Make first project (or featured) large, others small
-                $isFeatured = $index === 0 || $portfolio->is_featured;
-            @endphp
+    <!-- Projects Carousel with Swiper -->
+    <div class="relative" wire:key="carousel-{{ $selectedTechnology }}-{{ $searchTerm }}">
+        <div class="swiper projects-swiper" x-data x-init="
+            $nextTick(() => {
+                if (window.initProjectsCarousel) {
+                    setTimeout(() => window.initProjectsCarousel(), 100);
+                }
+            })
+        ">
+            <div class="swiper-wrapper">
+                @forelse($portfolios as $index => $portfolio)
+                    <div class="swiper-slide" wire:key="project-{{ $portfolio->id }}">
+                        <!-- Flip Card Container -->
+                        <div class="flip-card h-full" x-data="{ flipped: false }" @click="flipped = !flipped" :class="{ 'is-flipped': flipped }">
+                            <div class="flip-card-inner h-full">
+                                <!-- Front of Card: Title Only -->
+                                <div class="flip-card-front h-full flex items-center justify-center bg-slate-900/80 backdrop-blur-xl border-2 border-syntax-keyword/30 rounded-2xl p-10 shadow-xl">
+                                    <div class="text-center">
+                                        @if($portfolio->is_featured)
+                                            <div class="mb-6">
+                                                <span class="status-dot featured"></span>
+                                            </div>
+                                        @endif
+                                        <h3 class="text-4xl md:text-5xl font-heading font-bold text-white mb-6 leading-tight">
+                                            {{ $portfolio->title }}
+                                        </h3>
+                                        <p class="text-syntax-string text-sm font-mono animate-pulse">
+                                            👆 Click to view details
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Back of Card: Full Details -->
+                                <div class="flip-card-back h-full flex flex-col bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl border-2 border-syntax-string/40 rounded-2xl p-10 shadow-2xl">
+                                    <div class="flex-1">
+                                        <h3 class="text-2xl md:text-3xl font-heading font-bold text-syntax-string mb-6">
+                                            {{ $portfolio->title }}
+                                        </h3>
+                                        
+                                        <p class="text-gray-300 text-base mb-6 line-clamp-4 font-sans leading-relaxed">
+                                            {{ $portfolio->description }}
+                                        </p>
+                                        
+                                        <!-- Tech Stack Badges -->
+                                        <div class="flex flex-wrap gap-2 mb-6">
+                                            @foreach($portfolio->technologies ?? [] as $tech)
+                                                <span class="tech-badge text-xs">
+                                                    {{ $tech }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Project Links Footer -->
+                                    <div class="flex gap-4 mt-auto pt-4">
+                                        @if($portfolio->github_url)
+                                            <a href="{{ $portfolio->github_url }}" 
+                                               target="_blank"
+                                               class="flex-1 text-center cyber-btn-outline text-sm px-5 py-3 inline-block font-mono font-semibold"
+                                               onclick="event.stopPropagation()">
+                                                <span class="text-syntax-comment">// </span>Code
+                                            </a>
+                                        @endif
+                                        
+                                        @if($portfolio->url)
+                                            <a href="{{ $portfolio->url }}" 
+                                               target="_blank"
+                                               class="flex-1 text-center cyber-btn text-sm px-5 py-3 inline-block font-mono font-semibold"
+                                               onclick="event.stopPropagation()">
+                                                🚀 Live
+                                            </a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="swiper-slide">
+                        <div class="text-center py-16">
+                            <div class="text-6xl mb-4">🔍</div>
+                            <p class="text-gray-400 text-lg font-mono">
+                                <span class="text-syntax-comment">// </span>
+                                <span class="text-syntax-error">Error:</span>
+                                <span class="text-white"> No projects found</span>
+                            </p>
+                            <p class="text-gray-500 text-sm mt-2 font-mono">
+                                Try adjusting your filters or search term
+                            </p>
+                        </div>
+                    </div>
+                @endforelse
+            </div>
             
-            <div class="bento-item {{ $isFeatured ? 'bento-featured' : '' }}" 
-                 wire:key="project-{{ $portfolio->id }}">
-                 
-                <!-- Project Card Content -->
-                <div class="flex flex-col h-full">
-                    
-                    <!-- Project Header -->
-                    <div class="flex-1">
-                        <div class="flex items-start justify-between mb-3">
-                            <h3 class="text-xl {{ $isFeatured ? 'md:text-3xl' : 'md:text-2xl' }} font-heading font-bold text-white group-hover:text-syntax-string transition-colors">
-                                {{ $portfolio->title }}
-                            </h3>
-                            
-                            @if($portfolio->is_featured)
-                                <span class="status-dot featured ml-2 flex-shrink-0"></span>
-                            @endif
-                        </div>
-                        
-                        <p class="text-gray-400 {{ $isFeatured ? 'text-base mb-6' : 'text-sm mb-4' }} line-clamp-{{ $isFeatured ? '4' : '3' }} font-sans leading-relaxed">
-                            {{ $portfolio->description }}
-                        </p>
-                        
-                        <!-- Tech Stack Badges -->
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            @foreach($portfolio->technologies ?? [] as $tech)
-                                <span class="tech-badge">
-                                    {{ $tech }}
-                                </span>
-                            @endforeach
-                        </div>
-                    </div>
-                    
-                    <!-- Project Links Footer -->
-                    <div class="flex gap-3 mt-auto">
-                        @if($portfolio->github_url)
-                            <a href="{{ $portfolio->github_url }}" 
-                               target="_blank"
-                               class="flex-1 text-center cyber-btn-outline text-sm px-4 py-2.5 inline-block font-mono"
-                               onclick="event.stopPropagation()">
-                                <span class="text-syntax-comment">// </span>Code
-                            </a>
-                        @endif
-                        
-                        @if($portfolio->url)
-                            <a href="{{ $portfolio->url }}" 
-                               target="_blank"
-                               class="flex-1 text-center cyber-btn text-sm px-4 py-2.5 inline-block font-mono"
-                               onclick="event.stopPropagation()">
-                                🚀 Live
-                            </a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        @empty
-            <div class="col-span-full text-center py-16">
-                <div class="text-6xl mb-4">🔍</div>
-                <p class="text-gray-400 text-lg font-mono">
-                    <span class="text-syntax-comment">// </span>
-                    <span class="text-syntax-error">Error:</span>
-                    <span class="text-white"> No projects found</span>
-                </p>
-                <p class="text-gray-500 text-sm mt-2 font-mono">
-                    Try adjusting your filters or search term
-                </p>
-            </div>
-        @endforelse
+            <!-- Navigation Buttons -->
+            @if($portfolios->count() > 1)
+                <div class="swiper-button-next !text-syntax-string hover:!text-white transition-colors"></div>
+                <div class="swiper-button-prev !text-syntax-string hover:!text-white transition-colors"></div>
+            @endif
+            
+            <!-- Pagination -->
+            @if($portfolios->count() > 1)
+                <div class="swiper-pagination !bottom-0 !relative mt-8"></div>
+            @endif
+        </div>
     </div>
     
     <!-- Loading State -->

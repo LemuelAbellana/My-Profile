@@ -448,3 +448,108 @@
 .kanban-scroll::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+/* Swiper Carousel Cyber Theme Styling */
+.swiper {
+    padding: 20px 0 60px !important;
+}
+
+.swiper-slide {
+    height: auto;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--tw-color-syntax-string) !important;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    transition: all 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: rgba(16, 185, 129, 0.6);
+    transform: scale(1.1);
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+.swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.3) !important;
+    opacity: 1 !important;
+    width: 10px !important;
+    height: 10px !important;
+    transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--tw-color-syntax-string) !important;
+    width: 30px !important;
+    border-radius: 5px !important;
+}
+
+.swiper-pagination {
+    position: relative !important;
+}
+/* Flip Card Animation */
+.flip-card {
+    perspective: 1000px;
+    height: 100%;
+    min-height: 500px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.flip-card:hover {
+    transform: scale(1.02);
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+/* Click to flip instead of hover */
+.flip-card.is-flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+}
+
+.flip-card-front {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(59, 130, 246, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(16, 185, 129, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}

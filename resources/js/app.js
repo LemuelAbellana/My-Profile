@@ -2,6 +2,11 @@ import './bootstrap';
 import TypeIt from 'typeit';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -37,26 +42,83 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // GSAP Scroll Animations - Advanced Storytelling
     initScrollAnimations();
+    
+    // Initialize Projects Carousel
+    if (window.initProjectsCarousel) {
+        window.initProjectsCarousel();
+    }
 });
 
-// Initialize TypeIt for Hero Typewriter Effect
+// Initialize TypeIt for Hero Typewriter Effect - Simplified to fix doubled character bug
+let typeItInstance = null;
+
 window.initTypewriter = function() {
-    const heroElement = document.getElementById('hero-typewriter');
+    const el = document.querySelector('#hero-typewriter');
+    if (!el) return;
     
-    if (heroElement) {
-        new TypeIt(heroElement, {
-            strings: [
-                'Full-Stack Developer',
-                'Laravel Engineer',
-                'Problem Solver',
-                'IT Student',
-            ],
-            speed: 100,
-            deleteSpeed: 50,
-            breakLines: false,
+    // Destroy existing instance
+    if (typeItInstance) {
+        try {
+            typeItInstance.destroy();
+        } catch (e) {}
+        typeItInstance = null;
+    }
+    
+    // Clear completely
+    el.textContent = '';
+    
+    // Create new instance with minimal config
+    typeItInstance = new TypeIt(el, {
+        strings: ['Full Stack Developer', 'Laravel Engineer', 'Problem Solver', 'IT Student'],
+        speed: 100,
+        deleteSpeed: 50,
+        loop: true,
+        waitUntilVisible: true,
+        breakLines: false,
+        nextStringDelay: 1500
+    }).go();
+};
+
+// Initialize Swiper Carousel for Projects
+window.initProjectsCarousel = function() {
+    const swiperEl = document.querySelector('.projects-swiper');
+    if (swiperEl) {
+        // Destroy existing instance if any
+        if (swiperEl.swiper) {
+            swiperEl.swiper.destroy(true, true);
+        }
+        
+        // Initialize new Swiper instance
+        new Swiper('.projects-swiper', {
+            modules: [Navigation, Pagination, Autoplay],
+            slidesPerView: 1,
+            spaceBetween: 30,
             loop: true,
-            waitUntilVisible: true,
-        }).go();
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            },
+        });
     }
 };
 

@@ -35,7 +35,7 @@
                 <span class="text-syntax-keyword">const</span>
                 <span class="text-syntax-variable mx-2">role</span>
                 <span class="text-syntax-keyword">=</span>
-                <span id="hero-typewriter" class="gradient-text ml-2"></span>
+                <span id="hero-typewriter" class="text-syntax-string ml-2"></span>
                 <span class="text-syntax-keyword">;</span>
             </div>
             <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-12 font-sans" data-aos="fade-up" data-aos-delay="400">
@@ -296,7 +296,7 @@
                                    class="flex items-center gap-3 group hover:translate-x-1 transition-transform">
                                     <span class="text-3xl">🐦</span>
                                     <div class="flex-1">
-                                        <div class="text-syntax-variable text-xs">twitter</div>
+                                        <div class="text-syntax-variable text-xs">facebook</div>
                                         <div class="text-syntax-string group-hover:text-white transition-colors">"@yourusername"</div>
                                     </div>
                                 </a>

@@ -26,8 +26,8 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <h1 class="text-2xl font-bold">
-                            <span class="client-only">Your Name</span>
-                            <span class="dev-only hidden">&lt;YourName /&gt;</span>
+                            <span class="client-only">Lemuel</span>
+                            <span class="dev-only hidden">&lt;Lemuel /&gt;</span>
                         </h1>
                     </div>
                     
@@ -46,7 +46,7 @@
         <footer class="mt-20 border-t" data-component="Footer">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div class="text-center text-sm">
-                    <p class="client-only">© {{ date('Y') }} Your Name. All rights reserved.</p>
+                    <p class="client-only">© {{ date('Y') }} Lemuel. All rights reserved.</p>
                     <p class="dev-only hidden">
                         <span class="text-terminal-text">
                             // Built with Laravel {{ app()->version() }} + Livewire 3<br>

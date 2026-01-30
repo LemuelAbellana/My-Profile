@@ -58,7 +58,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div class="text-center md:text-left">
                         <p class="text-gray-400">
-                            © {{ date('Y') }} Your Name. Built with 
+                            © {{ date('Y') }} Lemuel. Built with 
                             <span class="text-cyber-accent">Laravel</span> & 
                             <span class="text-cyber-accent">Livewire</span>
                         </p>

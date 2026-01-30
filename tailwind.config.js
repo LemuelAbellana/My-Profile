@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -12,12 +13,38 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', ...defaultTheme.fontFamily.sans],
-                mono: ['Fira Code', 'monospace'],
-                heading: ['Rajdhani', 'Unbounded', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', 'system-ui', ...defaultTheme.fontFamily.sans],
+                mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
+                heading: ['JetBrains Mono', 'monospace'], // Mono for headings
+                code: ['JetBrains Mono', 'monospace'],
             },
             colors: {
-                // Technical Blueprint Palette
+                // Deep Slate Base (easier on eyes than pure black)
+                'slate': {
+                    950: '#020617',
+                    975: '#010410',
+                },
+                // Syntax Highlighting Palette
+                'syntax': {
+                    'keyword': '#3b82f6',    // Blue - keywords
+                    'string': '#10b981',     // Emerald - strings/success
+                    'method': '#f59e0b',     // Amber - methods/warnings
+                    'variable': '#8b5cf6',   // Violet - variables
+                    'comment': '#64748b',    // Slate - comments
+                    'error': '#ef4444',      // Red - errors
+                },
+                // Cyber-Minimalist Dark Theme Palette
+                'cyber': {
+                    'black': '#020617',      // Deep slate instead of pure black
+                    'dark': '#0f172a',       // Slate-900
+                    'gray': '#1e293b',       // Slate-800
+                    'light': '#f5f5f5',
+                    'accent': '#10b981',     // emerald-500 (syntax.string)
+                    'blue': '#3b82f6',       // blue-500 (syntax.keyword)
+                    'purple': '#8b5cf6',     // violet-500 (syntax.variable)
+                    'amber': '#f59e0b',      // amber-500 (syntax.method)
+                },
+                // Keep legacy colors for backward compatibility (can be removed later)
                 'porcelain': {
                     50: '#fafafa',
                     100: '#f5f5f5',
@@ -40,36 +67,24 @@ export default {
                     900: '#0f172a',
                     DEFAULT: '#334155',
                 },
-                'safety-orange': {
-                    400: '#ff9800',
-                    500: '#ff6f00',
-                    600: '#e65100',
-                    DEFAULT: '#ff6f00',
-                },
-                'electric-blue': {
-                    400: '#29b6f6',
-                    500: '#03a9f4',
-                    600: '#0288d1',
-                    DEFAULT: '#03a9f4',
-                },
-                'emerald': {
-                    400: '#66bb6a',
-                    500: '#4caf50',
-                    600: '#43a047',
-                    DEFAULT: '#4caf50',
-                },
             },
             animation: {
-                'explode': 'explode 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                'float': 'float 20s ease-in-out infinite',
+                'float-reverse': 'float 25s ease-in-out infinite reverse',
                 'slide-up': 'slideUp 0.3s ease-out',
                 'fade-in': 'fadeIn 0.5s ease-in',
-                'test-pass': 'testPass 0.3s ease-out',
-                'float': 'float 3s ease-in-out infinite',
+                'glow': 'glow 2s ease-in-out infinite alternate',
+                'glow-pulse': 'glowPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'gradient-shift': 'gradientShift 8s ease infinite',
+                'tilt': 'tilt 10s infinite linear',
+                'typing': 'typing 3.5s steps(40, end)',
             },
             keyframes: {
-                explode: {
-                    '0%': { transform: 'translateZ(0) scale(1)', opacity: '1' },
-                    '100%': { transform: 'translateZ(200px) scale(1.1)', opacity: '0.9' },
+                float: {
+                    '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+                    '25%': { transform: 'translate(30px, -30px) scale(1.1)' },
+                    '50%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                    '75%': { transform: 'translate(20px, 30px) scale(1.05)' },
                 },
                 slideUp: {
                     '0%': { transform: 'translateY(20px)', opacity: '0' },
@@ -79,23 +94,49 @@ export default {
                     '0%': { opacity: '0' },
                     '100%': { opacity: '1' },
                 },
-                testPass: {
-                    '0%': { transform: 'scale(0.8)', opacity: '0' },
-                    '50%': { transform: 'scale(1.1)' },
-                    '100%': { transform: 'scale(1)', opacity: '1' },
+                glow: {
+                    '0%': { boxShadow: '0 0 5px rgba(16, 185, 129, 0.5), 0 0 10px rgba(16, 185, 129, 0.3)' },
+                    '100%': { boxShadow: '0 0 10px rgba(16, 185, 129, 0.8), 0 0 20px rgba(16, 185, 129, 0.5)' },
                 },
-                float: {
-                    '0%, 100%': { transform: 'translateY(0px)' },
-                    '50%': { transform: 'translateY(-10px)' },
+                glowPulse: {
+                    '0%, 100%': { boxShadow: '0 0 20px rgba(16, 185, 129, 0.3)' },
+                    '50%': { boxShadow: '0 0 30px rgba(16, 185, 129, 0.6), 0 0 40px rgba(16, 185, 129, 0.3)' },
+                },
+                gradientShift: {
+                    '0%, 100%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' },
+                },
+                tilt: {
+                    '0%, 50%, 100%': { transform: 'rotate(0deg)' },
+                    '25%': { transform: 'rotate(1deg)' },
+                    '75%': { transform: 'rotate(-1deg)' },
+                },
+                typing: {
+                    'from': { width: '0' },
+                    'to': { width: '100%' },
                 },
             },
             backgroundImage: {
-                'blueprint-grid': 'linear-gradient(to right, rgba(25, 118, 210, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(25, 118, 210, 0.1) 1px, transparent 1px)',
+                'gradient-orb-emerald': 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)',
+                'gradient-orb-violet': 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
+                'gradient-orb-purple': 'radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%)',
             },
-            backgroundSize: {
-                'grid': '100px 100px',
+            backdropBlur: {
+                xs: '2px',
             },
         },
     },
-    plugins: [forms],
+    plugins: [
+        forms, 
+        typography,
+        require('daisyui'),
+    ],
+    daisyui: {
+        themes: ["dark"], // Only use dark theme for cyber-minimalist design
+        darkTheme: "dark",
+        base: true,
+        styled: true,
+        utils: true,
+        logs: false,
+    },
 };

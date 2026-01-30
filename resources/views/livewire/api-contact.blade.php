@@ -1,191 +1,144 @@
-<div class="api-panel rounded-lg overflow-hidden">
-    <!-- API Header -->
-    <div class="bg-slate-deep-900 text-white p-4 flex items-center justify-between">
-        <div class="flex items-center space-x-4">
-            <span class="api-method api-method-post">POST</span>
-            <span class="font-mono text-sm">/api/v1/contact-me</span>
-        </div>
-        <div class="flex items-center space-x-2 text-xs">
-            <span class="text-gray-400">Status:</span>
-            @if($statusCode)
-                <span class="px-2 py-1 rounded {{ $statusCode == 200 ? 'bg-emerald text-white' : 'bg-safety-orange text-white' }}">
-                    {{ $statusCode }}
-                </span>
-            @else
-                <span class="text-gray-400">Ready</span>
-            @endif
+<div class="terminal-contact-form font-mono text-sm">
+    {{-- Name Input --}}
+    <div class="flex items-start gap-3 mb-4">
+        <span class="text-syntax-keyword">$</span>
+        <div class="flex-1">
+            <label class="text-syntax-variable">--name</label>
+            <span class="text-syntax-comment">:</span>
+            <input 
+                type="text"
+                wire:model.live="name"
+                class="bg-transparent border-none text-syntax-string focus:ring-0 p-0 ml-2 font-mono w-full placeholder:text-syntax-comment/50"
+                style="position: relative; z-index: 10; pointer-events: auto;"
+                placeholder="John_Doe"
+                autofocus
+            />
+            @error('name')
+                <div class="text-syntax-error text-xs mt-1">
+                    <span>// Error: </span>{{ $message }}
+                </div>
+            @enderror
         </div>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="grid lg:grid-cols-2 gap-0">
-        <!-- Left: Request Body -->
-        <div class="bg-white p-6 border-r-2 border-slate-deep-800">
-            <h3 class="font-heading font-bold text-sm text-slate-deep-900 mb-4">REQUEST BODY</h3>
-            
-            <!-- JSON-style Form -->
-            <div class="font-mono text-sm space-y-4">
-                <div class="text-slate-deep-600">{</div>
-                
-                <!-- Name Field -->
-                <div class="ml-4">
-                    <label class="text-blueprint">"sender":</label>
-                    <input 
-                        type="text" 
-                        wire:model.live="name"
-                        class="ml-2 flex-1 border-0 border-b-2 border-blueprint-200 focus:border-blueprint focus:ring-0 text-slate-deep-900 bg-transparent font-mono text-sm"
-                        placeholder="John Doe"
-                    />
+    {{-- Email Input --}}
+    <div class="flex items-start gap-3 mb-4">
+        <span class="text-syntax-keyword">$</span>
+        <div class="flex-1">
+            <label class="text-syntax-variable">--email</label>
+            <span class="text-syntax-comment">:</span>
+            <input 
+                type="email"
+                wire:model.live="email"
+                class="bg-transparent border-none text-syntax-string focus:ring-0 p-0 ml-2 font-mono w-full placeholder:text-syntax-comment/50"
+                style="position: relative; z-index: 10; pointer-events: auto;"
+                placeholder="john@example.com"
+            />
+            @error('email')
+                <div class="text-syntax-error text-xs mt-1">
+                    <span>// Error: </span>{{ $message }}
                 </div>
-                
-                <!-- Email Field -->
-                <div class="ml-4">
-                    <label class="text-blueprint">"email":</label>
-                    <input 
-                        type="email" 
-                        wire:model.live="email"
-                        class="ml-2 flex-1 border-0 border-b-2 border-blueprint-200 focus:border-blueprint focus:ring-0 text-slate-deep-900 bg-transparent font-mono text-sm"
-                        placeholder="john@example.com"
-                    />
-                </div>
-                
-                <!-- Priority Field -->
-                <div class="ml-4">
-                    <label class="text-blueprint">"priority":</label>
-                    <select 
-                        wire:model="priority"
-                        class="ml-2 border-0 border-b-2 border-blueprint-200 focus:border-blueprint focus:ring-0 text-slate-deep-900 bg-transparent font-mono text-sm"
-                    >
-                        <option value="low">low</option>
-                        <option value="medium" selected>medium</option>
-                        <option value="high">high</option>
-                    </select>
-                </div>
-                
-                <!-- Message Field -->
-                <div class="ml-4">
-                    <label class="text-blueprint">"payload":</label>
-                    <textarea 
-                        wire:model.live="message"
-                        rows="4"
-                        class="mt-2 w-full border-2 border-blueprint-200 focus:border-blueprint focus:ring-0 rounded text-slate-deep-900 bg-porcelain font-mono text-sm p-3"
-                        placeholder="Your message here..."
-                    ></textarea>
-                </div>
-                
-                <div class="text-slate-deep-600">}</div>
-            </div>
+            @enderror
+        </div>
+    </div>
 
-            <!-- Submit Button -->
-            <div class="mt-6">
+    {{-- Priority Select --}}
+    <div class="flex items-start gap-3 mb-4">
+        <span class="text-syntax-keyword">$</span>
+        <div class="flex-1">
+            <label class="text-syntax-variable">--priority</label>
+            <span class="text-syntax-comment">:</span>
+            <div class="inline-flex gap-2 ml-2">
                 <button 
-                    wire:click="submit"
-                    class="w-full bg-blueprint hover:bg-blueprint-600 text-white font-bold py-3 px-6 rounded font-mono transition"
-                >
-                    ► SEND REQUEST
+                    type="button"
+                    wire:click="$set('priority', 'low')" 
+                    class="hover:text-syntax-string transition {{ $priority === 'low' ? 'text-syntax-string' : 'text-syntax-comment' }}">
+                    [low]
+                </button>
+                <button 
+                    type="button"
+                    wire:click="$set('priority', 'medium')" 
+                    class="hover:text-syntax-string transition {{ $priority === 'medium' ? 'text-syntax-string' : 'text-syntax-comment' }}">
+                    [medium]
+                </button>
+                <button 
+                    type="button"
+                    wire:click="$set('priority', 'high')" 
+                    class="hover:text-syntax-string transition {{ $priority === 'high' ? 'text-syntax-string' : 'text-syntax-comment' }}">
+                    [high]
                 </button>
             </div>
         </div>
+    </div>
 
-        <!-- Right: Test Cases & Response -->
-        <div class="bg-porcelain p-6">
-            <!-- Test Cases Panel -->
-            <div class="mb-6">
-                <h3 class="font-heading font-bold text-sm text-slate-deep-900 mb-4">VALIDATION TESTS</h3>
-                <div class="space-y-2">
-                    <!-- Email Format Test -->
-                    <div class="flex items-center justify-between p-3 bg-white rounded border border-blueprint-200">
-                        <span class="font-mono text-xs text-slate-deep-700">Assert::email()->isValid()</span>
-                        <span class="font-mono text-xs {{ $tests['email_format'] == 'pass' ? 'test-pass' : ($tests['email_format'] == 'fail' ? 'test-fail' : 'test-pending') }}">
-                            @if($tests['email_format'] == 'pass')
-                                ✓ PASS
-                            @elseif($tests['email_format'] == 'fail')
-                                ✗ FAIL
-                            @else
-                                ⧗ PENDING
-                            @endif
-                        </span>
-                    </div>
-
-                    <!-- DNS Check Test -->
-                    <div class="flex items-center justify-between p-3 bg-white rounded border border-blueprint-200">
-                        <span class="font-mono text-xs text-slate-deep-700">Assert::email()->hasMX()</span>
-                        <span class="font-mono text-xs {{ $tests['email_dns'] == 'pass' ? 'test-pass' : ($tests['email_dns'] == 'fail' ? 'test-fail' : 'test-pending') }}">
-                            @if($tests['email_dns'] == 'pass')
-                                ✓ PASS
-                            @elseif($tests['email_dns'] == 'fail')
-                                ✗ FAIL
-                            @else
-                                ⧗ PENDING
-                            @endif
-                        </span>
-                    </div>
-
-                    <!-- Name Length Test -->
-                    <div class="flex items-center justify-between p-3 bg-white rounded border border-blueprint-200">
-                        <span class="font-mono text-xs text-slate-deep-700">Assert::name()->length(2-100)</span>
-                        <span class="font-mono text-xs {{ $tests['name_length'] == 'pass' ? 'test-pass' : ($tests['name_length'] == 'fail' ? 'test-fail' : 'test-pending') }}">
-                            @if($tests['name_length'] == 'pass')
-                                ✓ PASS
-                            @elseif($tests['name_length'] == 'fail')
-                                ✗ FAIL
-                            @else
-                                ⧗ PENDING
-                            @endif
-                        </span>
-                    </div>
-
-                    <!-- Message Length Test -->
-                    <div class="flex items-center justify-between p-3 bg-white rounded border border-blueprint-200">
-                        <span class="font-mono text-xs text-slate-deep-700">Assert::message()->length(10-5000)</span>
-                        <span class="font-mono text-xs {{ $tests['message_length'] == 'pass' ? 'test-pass' : ($tests['message_length'] == 'fail' ? 'test-fail' : 'test-pending') }}">
-                            @if($tests['message_length'] == 'pass')
-                                ✓ PASS
-                            @elseif($tests['message_length'] == 'fail')
-                                ✗ FAIL
-                            @else
-                                ⧗ PENDING
-                            @endif
-                        </span>
-                    </div>
-                </div>
+    {{-- Message Textarea --}}
+    <div class="flex items-start gap-3 mb-4">
+        <span class="text-syntax-keyword">$</span>
+        <div class="flex-1">
+            <label class="text-syntax-variable">--message</label>
+            <span class="text-syntax-comment">:</span>
+            <div class="ml-2 mt-2 border-l-2 border-syntax-comment/30 pl-4">
+                <textarea 
+                    wire:model.live="message"
+                    rows="6"
+                    class="bg-transparent border-none text-syntax-string focus:ring-0 p-0 font-mono w-full resize-none placeholder:text-syntax-comment/50"
+                    style="position: relative; z-index: 10; pointer-events: auto;"
+                    placeholder="Type your message here..."
+                ></textarea>
             </div>
-
-            <!-- Response Panel -->
-            @if($response)
-                <div class="mt-6">
-                    <h3 class="font-heading font-bold text-sm text-slate-deep-900 mb-4">RESPONSE</h3>
-                    <div class="bg-slate-deep-900 rounded p-4 text-sm font-mono overflow-x-auto">
-                        <pre class="text-emerald">{{ json_encode($response, JSON_PRETTY_PRINT) }}</pre>
-                    </div>
+            @error('message')
+                <div class="text-syntax-error text-xs mt-1 ml-2">
+                    <span>// Error: </span>{{ $message }}
                 </div>
-            @endif
+            @enderror
         </div>
     </div>
 
-    <!-- Request Info Footer -->
-    <div class="bg-slate-deep-800 text-white p-3 text-xs font-mono flex items-center justify-between">
-        <div class="flex items-center space-x-4">
-            <span class="text-gray-400">Content-Type:</span>
-            <span>application/json</span>
+    {{-- Submit Command --}}
+    <div class="flex items-center gap-3 pt-4 border-t border-syntax-comment/20">
+        <span class="text-syntax-keyword">$</span>
+        <button 
+            type="button"
+            wire:click="submit"
+            class="terminal-submit-btn group flex items-center gap-2 text-syntax-string hover:text-white transition"
+            wire:loading.attr="disabled">
+            <span wire:loading.remove>./submit</span>
+            <span wire:loading class="flex items-center gap-2">
+                <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                sending
+            </span>
+            <span class="text-syntax-comment">--async</span>
+            <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </button>
+    </div>
+
+    {{-- Success/Error Response --}}
+    @if($statusCode)
+        <div class="mt-6 border-t border-syntax-comment/20 pt-4">
+            <div class="text-syntax-comment mb-2 text-xs">// Response:</div>
+            <div class="bg-cyber-dark rounded-lg p-4 border {{ $statusCode == 200 ? 'border-syntax-string/30' : 'border-syntax-error/30' }}">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="font-bold {{ $statusCode == 200 ? 'text-syntax-string' : 'text-syntax-error' }}">
+                        {{ $statusCode }}
+                    </span>
+                    <span class="text-syntax-comment text-xs">
+                        {{ $statusCode == 200 ? 'OK' : 'ERROR' }}
+                    </span>
+                </div>
+                <pre class="text-{{ $statusCode == 200 ? 'syntax-string' : 'syntax-error' }} text-xs">{{ $statusMessage ?? 'Message sent successfully!' }}</pre>
+            </div>
         </div>
-        <div class="flex items-center space-x-4">
-            <span class="text-gray-400">Accept:</span>
-            <span>application/json</span>
-        </div>
-        <div class="flex items-center space-x-4">
-            <span class="text-gray-400">X-Powered-By:</span>
-            <span>Laravel {{ app()->version() }}</span>
-        </div>
+    @endif
+
+    {{-- Loading State --}}
+    <div wire:loading class="mt-4 text-syntax-comment text-xs flex items-center gap-2">
+        <svg class="animate-spin h-3 w-3" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>// Processing request...</span>
     </div>
 </div>
-
-@script
-<script>
-    $wire.on('reset-form-delay', () => {
-        setTimeout(() => {
-            $wire.resetForm();
-        }, 3000);
-    });
-</script>
-@endscript

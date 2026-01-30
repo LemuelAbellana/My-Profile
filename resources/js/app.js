@@ -1,10 +1,169 @@
 import './bootstrap';
-import Alpine from 'alpinejs';
+import TypeIt from 'typeit';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-window.Alpine = Alpine;
-Alpine.start();
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
-// Listen for mode changes and update body class
+// Alpine Components - Livewire v3 includes Alpine automatically
+document.addEventListener('livewire:init', () => {
+    Alpine.data('scrollProgress', () => ({
+        progress: 0,
+        init() {
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                this.progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+            });
+        }
+    }));
+});
+
+// Initialize AOS (Animate On Scroll)
+document.addEventListener('DOMContentLoaded', () => {
+    // Prevent auto-scroll on initial page load
+    if (window.location.hash) {
+        // Temporarily disable smooth scroll
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo(0, 0);
+        setTimeout(() => {
+            document.documentElement.classList.add('js-ready');
+            document.documentElement.style.scrollBehavior = '';
+        }, 100);
+    } else {
+        document.documentElement.classList.add('js-ready');
+    }
+    
+    AOS.init({
+        duration: 800,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 100,
+        delay: 0,
+    });
+    
+    // GSAP Scroll Animations - Advanced Storytelling
+    initScrollAnimations();
+});
+
+// Initialize TypeIt for Hero Typewriter Effect
+window.initTypewriter = function() {
+    const heroElement = document.getElementById('hero-typewriter');
+    
+    if (heroElement) {
+        new TypeIt(heroElement, {
+            strings: [
+                'Full-Stack Developer',
+                'Laravel Engineer',
+                'Problem Solver',
+                'IT Student',
+            ],
+            speed: 100,
+            deleteSpeed: 50,
+            breakLines: false,
+            loop: true,
+            waitUntilVisible: true,
+        }).go();
+    }
+};
+
+// GSAP ScrollTrigger Animations
+function initScrollAnimations() {
+    // Hero Section: Staggered fade-up for role badges
+    const heroBadges = document.querySelectorAll('.hero-badge');
+    if (heroBadges.length > 0) {
+        gsap.from(heroBadges, {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out',
+            delay: 0.3
+        });
+    }
+    
+    // DISABLED: Skills Bento Grid animation causing visibility issues
+    // const bentoItems = document.querySelectorAll('#skills .bento-item');
+    // if (bentoItems.length > 0) {
+    //     gsap.from(bentoItems, {
+    //         scrollTrigger: {
+    //             trigger: '#skills .bento-container',
+    //             start: 'top 70%',
+    //             toggleActions: 'play none none reverse'
+    //         },
+    //         scale: 0.9,
+    //         opacity: 0,
+    //         y: 40,
+    //         duration: 0.7,
+    //         stagger: 0.15,
+    //         ease: 'back.out(1.4)'
+    //     });
+    // }
+    
+    // DISABLED: Project Cards animation causing visibility issues
+    // const projectCards = document.querySelectorAll('#projects .bento-item');
+    // if (projectCards.length > 0) {
+    //     gsap.from(projectCards, {
+    //         scrollTrigger: {
+    //             trigger: '#projects',
+    //             start: 'top 60%',
+    //             toggleActions: 'play none none reverse'
+    //         },
+    //         y: 100,
+    //         opacity: 0,
+    //         duration: 0.9,
+    //         stagger: {
+    //             amount: 0.8,
+    //             from: 'start'
+    //         },
+    //         ease: 'power2.out'
+    //     });
+    // }
+    
+    // Parallax Gradient Orbs
+    const orbs = document.querySelectorAll('.gradient-orb');
+    orbs.forEach((orb, index) => {
+        gsap.to(orb, {
+            scrollTrigger: {
+                trigger: 'body',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1
+            },
+            y: -150 * (index + 1),
+            ease: 'none'
+        });
+    });
+    
+    // Contact Section: Directional slide-in
+    const contactCards = document.querySelectorAll('#contact .glass-card');
+    contactCards.forEach((card, index) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: '#contact',
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            },
+            x: index === 0 ? -80 : 80,
+            opacity: 0,
+            duration: 1,
+            ease: 'power2.out'
+        });
+    });
+}
+
+// Refresh AOS on Livewire navigation (SPA-style)
+document.addEventListener('livewire:navigated', () => {
+    AOS.refresh();
+    
+    // Re-initialize typewriter if navigated back to homepage
+    if (window.initTypewriter) {
+        window.initTypewriter();
+    }
+});
+
+// Listen for mode changes and update body class (keep existing functionality)
 document.addEventListener('livewire:initialized', () => {
     Livewire.on('modeChanged', (event) => {
         const mode = event.mode;
@@ -22,49 +181,3 @@ document.addEventListener('livewire:initialized', () => {
         });
     });
 });
-
-// Initialize body class based on current mode
-document.addEventListener('DOMContentLoaded', () => {
-    const savedMode = sessionStorage.getItem('preferred_mode') || 'client';
-    document.body.classList.add(`${savedMode}-mode`);
-});
-
-// Matrix Rain Effect for Dev Mode
-function createMatrixRain() {
-    const canvas = document.getElementById('matrix-canvas');
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()'.split('');
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
-    
-    function draw() {
-        ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = '#16a34a';
-        ctx.font = fontSize + 'px monospace';
-        
-        for (let i = 0; i < drops.length; i++) {
-            const text = chars[Math.floor(Math.random() * chars.length)];
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        }
-    }
-    
-    setInterval(draw, 33);
-}
-
-// Initialize matrix rain if in dev mode
-if (document.body.classList.contains('dev-mode')) {
-    createMatrixRain();
-}

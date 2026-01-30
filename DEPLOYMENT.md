@@ -263,8 +263,9 @@ chmod 600 .env
 server {
   listen 80;
   listen [::]:80;
-  listen 443 ssl http2;
-  listen [::]:443 ssl http2;
+  listen 443 ssl;
+  listen [::]:443 ssl;
+  http2 on;
   {{ssl_certificate_key}}
   {{ssl_certificate}}
   server_name yourdomain.com www.yourdomain.com;
@@ -301,12 +302,10 @@ server {
   }
 
   location ~ \.php$ {
-    fastcgi_pass unix:/var/run/php/php8.2-fpm-clpuser.sock;
+    fastcgi_pass unix:/var/run/php/php8.2-fpm-{{username}}.sock;
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     include fastcgi_params;
-    fastcgi_buffers 16 16k;
-    fastcgi_buffer_size 32k;
   }
 
   # Cache static assets

@@ -18,6 +18,7 @@ return new class extends Migration
                 'mode_toggle', 
                 'card_click', 
                 'project_view',
+                'project_search',
                 'ticket_submit',
                 'resume_download'
             ]);

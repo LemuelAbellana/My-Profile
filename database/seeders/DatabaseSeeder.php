@@ -143,6 +143,8 @@ class DatabaseSeeder extends Seeder
             [
                 'title' => 'E-Commerce Platform Rebuild',
                 'description' => 'Complete rebuild of a legacy e-commerce system serving 10,000+ daily users. Implemented modern architecture with microservices approach.',
+                'url' => 'https://example.com/ecommerce',
+                'github_url' => 'https://github.com/example/ecommerce',
                 'tests_passing' => true,
                 'critical_bugs' => 0,
                 'minor_bugs' => 2,
@@ -158,6 +160,8 @@ class DatabaseSeeder extends Seeder
             [
                 'title' => 'Task Management SaaS',
                 'description' => 'A Trello-like project management tool with real-time collaboration features built with Livewire.',
+                'url' => 'https://example.com/taskmanager',
+                'github_url' => 'https://github.com/example/taskmanager',
                 'tests_passing' => true,
                 'critical_bugs' => 0,
                 'minor_bugs' => 0,
@@ -173,6 +177,8 @@ class DatabaseSeeder extends Seeder
             [
                 'title' => 'Inventory Management System',
                 'description' => 'Complete inventory tracking system for a manufacturing company with barcode scanning and reporting.',
+                'url' => 'https://example.com/inventory',
+                'github_url' => 'https://github.com/example/inventory',
                 'tests_passing' => true,
                 'critical_bugs' => 0,
                 'minor_bugs' => 3,
@@ -188,6 +194,8 @@ class DatabaseSeeder extends Seeder
             [
                 'title' => 'Customer Portal & API',
                 'description' => 'RESTful API and customer portal for a logistics company, handling 50K+ daily API calls.',
+                'url' => 'https://example.com/customerportal',
+                'github_url' => 'https://github.com/example/api',
                 'tests_passing' => true,
                 'critical_bugs' => 0,
                 'minor_bugs' => 1,
@@ -203,6 +211,8 @@ class DatabaseSeeder extends Seeder
             [
                 'title' => 'School Management System',
                 'description' => 'Comprehensive school management platform handling student records, grades, and parent communication.',
+                'url' => 'https://example.com/schoolsystem',
+                'github_url' => 'https://github.com/example/school',
                 'tests_passing' => true,
                 'critical_bugs' => 0,
                 'minor_bugs' => 4,

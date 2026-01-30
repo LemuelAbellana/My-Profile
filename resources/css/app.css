@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&family=Fira+Code:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,98 +6,390 @@
 
 @layer base {
     body {
-        @apply bg-porcelain text-slate-deep font-sans antialiased;
-        background-image: 
-            linear-gradient(to right, rgba(25, 118, 210, 0.08) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(25, 118, 210, 0.08) 1px, transparent 1px);
-        background-size: 100px 100px;
-        background-position: -1px -1px;
+        @apply bg-cyber-black text-white font-sans antialiased;
+    }
+    
+    /* Gradient orb backgrounds */
+    body::before,
+    body::after {
+        content: '';
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: -1;
+    }
+    
+    body::before {
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+        top: -200px;
+        right: -200px;
+        animation: float 20s ease-in-out infinite;
+    }
+    
+    body::after {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+        bottom: -150px;
+        left: -150px;
+        animation: float-reverse 25s ease-in-out infinite;
     }
     
     h1, h2, h3, h4, h5, h6 {
         @apply font-heading font-bold tracking-tight;
     }
     
-    /* Precision Typography */
-    .text-technical {
-        @apply font-mono text-sm tracking-wide;
+    /* Smooth scroll with padding for fixed header */
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 100px;
+    }
+    
+    /* Prevent auto-scroll on page load */
+    html:not(.js-ready) {
+        scroll-behavior: auto;
+    }
+    
+    /* Section anchors offset for fixed header */
+    section[id] {
+        scroll-margin-top: 100px;
     }
 }
 
 @layer components {
-    /* Blueprint Annotation Lines */
-    .annotation-line {
+    /* Enhanced Glassmorphism Card */
+    .glass-card {
+        background: rgba(15, 23, 42, 0.5);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1.5rem;
+        box-shadow: 
+            0 8px 32px 0 rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
     }
     
-    .annotation-line::after {
+    .glass-card::before {
         content: '';
         position: absolute;
-        width: 40px;
-        height: 1px;
-        background: linear-gradient(to right, theme('colors.blueprint.DEFAULT'), transparent);
-        top: 50%;
-        right: -50px;
+        inset: -1px;
+        border-radius: 1.5rem;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(16, 185, 129, 0.3));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
     
-    /* Exploded Layer System */
-    .layer-container {
-        perspective: 1000px;
-        transform-style: preserve-3d;
-    }
-    
-    .layer {
-        transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-        transform-origin: center center;
-    }
-    
-    .layer-front {
-        transform: translateZ(0px);
-    }
-    
-    .layer-middle {
-        transform: translateZ(-50px);
-    }
-    
-    .layer-back {
-        transform: translateZ(-100px);
-    }
-    
-    /* When deconstructed */
-    .deconstructed .layer-front {
-        transform: translateZ(100px) translateY(-30px);
-    }
-    
-    .deconstructed .layer-middle {
-        transform: translateZ(0px);
-    }
-    
-    .deconstructed .layer-back {
-        transform: translateZ(-100px) translateY(30px);
-    }
-    
-    /* Technical Card with Schematic Lines */
-    .tech-card {
-        @apply bg-white border-2 border-blueprint-200 relative;
+    .glass-card:hover {
+        background: rgba(15, 23, 42, 0.7);
+        border-color: rgba(59, 130, 246, 0.3);
+        transform: translateY(-4px);
         box-shadow: 
-            4px 4px 0 0 rgba(25, 118, 210, 0.1),
-            8px 8px 0 0 rgba(25, 118, 210, 0.05);
+            0 12px 40px 0 rgba(0, 0, 0, 0.5),
+            0 0 0 1px rgba(59, 130, 246, 0.2),
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
     }
     
-    .tech-card::before {
+    .glass-card:hover::before {
+        opacity: 1;
+    }
+    
+    /* Bento Grid Layout System */
+    .bento-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        grid-auto-rows: minmax(200px, auto);
+    }
+    
+    @media (min-width: 768px) {
+        .bento-container {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+    
+    .bento-item {
+        @apply glass-card p-6 transition-all duration-300;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .bento-item:hover {
+        @apply border-syntax-keyword shadow-lg;
+    }
+    
+    /* Featured Bento Item (2x2) */
+    .bento-featured {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+    
+    /* Enhanced Bento Item with Hover Effects */
+    .bento-item {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .bento-item::before {
         content: '';
         position: absolute;
-        top: 8px;
-        left: 8px;
-        right: 8px;
-        bottom: 8px;
-        border: 1px dashed theme('colors.blueprint.200');
-        pointer-events: none;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.5s;
+        background: linear-gradient(135deg, rgba(16,185,129,0.05) 0%, rgba(59,130,246,0.05) 100%);
     }
     
-    /* Postman-style Request Panel */
+    .bento-item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 40px rgba(16,185,129,0.15);
+    }
+    
+    .bento-item:hover::before {
+        opacity: 1;
+    }
+    
+    /* Tech Badge Styling */
+    .tech-badge {
+        @apply px-3 py-1.5 rounded-lg text-xs font-mono font-semibold;
+        @apply bg-slate-900/80 text-syntax-keyword border border-syntax-keyword/20;
+        @apply transition-all duration-300 hover:border-syntax-keyword/50;
+        box-shadow: 0 0 10px rgba(59,130,246,0.1);
+    }
+    
+    .tech-badge:hover {
+        box-shadow: 0 0 15px rgba(59,130,246,0.2);
+    }
+    
+    /* Category Pills for Filtering */
+    .category-pill {
+        @apply px-5 py-2.5 rounded-full text-sm font-mono font-semibold;
+        @apply bg-slate-900/60 text-gray-400 border-2 border-slate-800;
+        @apply transition-all duration-300 hover:border-syntax-keyword/50;
+        @apply hover:text-white hover:shadow-[0_0_20px_rgba(59,130,246,0.2)];
+    }
+    
+    .category-pill.active {
+        @apply bg-syntax-keyword/10 text-syntax-keyword border-syntax-keyword;
+        box-shadow: 0 0 25px rgba(59,130,246,0.3), inset 0 0 20px rgba(59,130,246,0.1);
+    }
+    
+    .category-pill.active:hover {
+        box-shadow: 0 0 30px rgba(59,130,246,0.4), inset 0 0 25px rgba(59,130,246,0.15);
+    }
+    
+    /* Status Dot Variations */
+    .status-dot.featured {
+        @apply bg-syntax-method;
+        box-shadow: 0 0 10px rgba(245,158,11,0.6);
+    }
+    
+    .status-dot.featured::after {
+        @apply bg-syntax-method;
+    }
+
+/* ============================================
+   TERMINAL INTERFACE STYLES
+   ============================================ */
+.terminal-interface {
+    font-family: 'JetBrains Mono', monospace;
+    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.1);
+}
+
+.terminal-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 18px;
+    background: var(--syntax-string, #10b981);
+    animation: terminal-blink 1s step-end infinite;
+}
+
+@keyframes terminal-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.terminal-line {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.terminal-body input,
+.terminal-body textarea {
+    caret-color: #10b981;
+}
+
+.terminal-body input:focus,
+.terminal-body textarea:focus {
+    outline: none;
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+/* Subtle scanline effect */
+.terminal-body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(16, 185, 129, 0.02) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.terminal-prompt {
+    color: #10b981;
+    font-weight: bold;
+}
+
+.terminal-submit-btn:hover {
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+}
+
+.terminal-submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+    
+    @media (max-width: 767px) {
+        .bento-featured {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+    }
+    
+    /* Cyber Button with Glow */
+    .cyber-btn {
+        @apply px-6 py-3 bg-syntax-string text-slate-950 font-semibold rounded-lg font-mono;
+        @apply hover:shadow-lg transition-all duration-300 relative;
+        @apply border-2 border-syntax-string;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cyber-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+    
+    .cyber-btn:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .cyber-btn:hover {
+        background: #0dcb7e;
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+        transform: translateY(-2px);
+    }
+    
+    .cyber-btn-outline {
+        @apply px-6 py-3 bg-transparent text-syntax-keyword font-semibold rounded-lg font-mono;
+        @apply hover:bg-syntax-keyword hover:text-slate-950 transition-all duration-300;
+        @apply border-2 border-syntax-keyword;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+    }
+    
+    .cyber-btn-outline:hover {
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+    }
+    
+    /* Gradient Text with Glow */
+    .gradient-text {
+        @apply bg-gradient-to-r from-syntax-string via-syntax-keyword to-syntax-variable bg-clip-text text-transparent;
+        background-size: 200% auto;
+        animation: gradientShift 4s ease infinite;
+    }
+    
+    /* Syntax Highlighting Text Colors */
+    .text-syntax-keyword { color: #3b82f6; }
+    .text-syntax-string { color: #10b981; }
+    .text-syntax-method { color: #f59e0b; }
+    .text-syntax-variable { color: #8b5cf6; }
+    .text-syntax-comment { color: #64748b; }
+    .text-syntax-error { color: #ef4444; }
+    
+    /* Status Indicator Pulse */
+    .status-indicator {
+        @apply inline-flex items-center gap-2;
+    }
+    
+    .status-dot {
+        @apply w-2 h-2 rounded-full;
+        animation: glowPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    .status-dot.online {
+        @apply bg-syntax-string;
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+    }
+    
+    /* Floating Animation for Cards */
+    .float-animation {
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    /* 3D Tilt Effect Container */
+    .tilt-container {
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease-out;
+    }
+    
+    /* Scroll Progress Bar */
+    .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #3b82f6, #10b981, #8b5cf6);
+        transform-origin: left;
+        z-index: 9999;
+    }
+    
+    /* Glow Effect */
+    .glow-effect {
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.5), 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+    
+    /* Tech Stack Badge */
+    .tech-badge {
+        @apply px-3 py-1 bg-cyber-accent/20 text-cyber-accent rounded-full text-xs font-medium;
+        @apply border border-cyber-accent/30 transition-all duration-200;
+    }
+    
+    .tech-badge:hover {
+        @apply bg-cyber-accent/30 border-cyber-accent/50;
+    }
+    
+    /* Legacy blueprint styles - can be removed if not needed */
     .api-panel {
-        @apply bg-white border-2 border-slate-deep-800 font-mono text-sm;
+        @apply bg-cyber-dark border-2 border-white/10 font-mono text-sm rounded-lg;
     }
     
     .api-method {
@@ -105,56 +397,36 @@
     }
     
     .api-method-post {
-        @apply bg-safety-orange text-white;
+        @apply bg-amber-500 text-white;
     }
     
     .api-method-get {
-        @apply bg-electric-blue text-white;
+        @apply bg-blue-500 text-white;
     }
     
-    /* Test Status Indicators */
-    .test-pending {
-        @apply text-gray-400;
-    }
-    
-    .test-pass {
-        @apply text-emerald animate-test-pass;
-    }
-    
-    .test-fail {
-        @apply text-safety-orange;
-    }
-    
-    /* Grid Snap Elements */
-    .grid-snap {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: theme('spacing.8');
-    }
-    
-    /* Status Badges */
+    /* Status Badges - Updated for dark theme */
     .status-badge {
         @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
     }
     
     .status-badge.green {
-        @apply bg-green-100 text-green-800;
+        @apply bg-emerald-500/20 text-emerald-400 border border-emerald-500/30;
     }
     
     .status-badge.blue {
-        @apply bg-blue-100 text-blue-800;
+        @apply bg-blue-500/20 text-blue-400 border border-blue-500/30;
     }
     
     .status-badge.yellow {
-        @apply bg-yellow-100 text-yellow-800;
+        @apply bg-amber-500/20 text-amber-400 border border-amber-500/30;
     }
     
     .status-badge.red {
-        @apply bg-red-100 text-red-800;
+        @apply bg-red-500/20 text-red-400 border border-red-500/30;
     }
     
     .status-badge.gray {
-        @apply bg-gray-100 text-gray-800;
+        @apply bg-gray-500/20 text-gray-400 border border-gray-500/30;
     }
 }
 

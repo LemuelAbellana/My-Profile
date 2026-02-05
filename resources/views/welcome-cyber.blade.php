@@ -262,42 +262,42 @@
                             </div>
                             
                             <div class="ml-4 space-y-3">
-                                <a href="mailto:your@email.com" 
+                                <a href="mailto:lemuel@example.com" 
                                    class="flex items-center gap-3 group hover:translate-x-1 transition-transform">
                                     <span class="text-3xl">📧</span>
                                     <div class="flex-1">
                                         <div class="text-syntax-variable text-xs">email</div>
-                                        <div class="text-syntax-string group-hover:text-white transition-colors">"your@email.com"</div>
+                                        <div class="text-syntax-string group-hover:text-white transition-colors">"lemuel@example.com"</div>
                                     </div>
                                 </a>
                                 
-                                <a href="https://github.com/yourusername" 
+                                <a href="https://github.com/lemuelgomz" 
                                    target="_blank"
                                    class="flex items-center gap-3 group hover:translate-x-1 transition-transform">
                                     <span class="text-3xl">💻</span>
                                     <div class="flex-1">
                                         <div class="text-syntax-variable text-xs">github</div>
-                                        <div class="text-syntax-string group-hover:text-white transition-colors">"@yourusername"</div>
+                                        <div class="text-syntax-string group-hover:text-white transition-colors">"@lemuelgomz"</div>
                                     </div>
                                 </a>
                                 
-                                <a href="https://linkedin.com/in/yourprofile" 
+                                <a href="https://linkedin.com/in/lemuelgomz" 
                                    target="_blank"
                                    class="flex items-center gap-3 group hover:translate-x-1 transition-transform">
                                     <span class="text-3xl">💼</span>
                                     <div class="flex-1">
                                         <div class="text-syntax-variable text-xs">linkedin</div>
-                                        <div class="text-syntax-string group-hover:text-white transition-colors">"yourprofile"</div>
+                                        <div class="text-syntax-string group-hover:text-white transition-colors">"lemuelgomz"</div>
                                     </div>
                                 </a>
                                 
-                                <a href="https://twitter.com/yourusername" 
+                                <a href="https://twitter.com/lemuelgomz" 
                                    target="_blank"
                                    class="flex items-center gap-3 group hover:translate-x-1 transition-transform">
                                     <span class="text-3xl">🐦</span>
                                     <div class="flex-1">
-                                        <div class="text-syntax-variable text-xs">facebook</div>
-                                        <div class="text-syntax-string group-hover:text-white transition-colors">"@yourusername"</div>
+                                        <div class="text-syntax-variable text-xs">twitter</div>
+                                        <div class="text-syntax-string group-hover:text-white transition-colors">"@lemuelgomz"</div>
                                     </div>
                                 </a>
                             </div>

@@ -77,12 +77,11 @@ class ApiContact extends Component
         try {
             // Create ticket
             $ticket = Ticket::create([
-                'name' => $this->name,
-                'email' => $this->email,
-                'subject' => 'Contact Request - ' . ucfirst($this->priority) . ' Priority',
-                'message' => $this->message,
-                'status' => 'open',
-                'priority' => $this->priority,
+                'requester_name' => $this->name,
+                'requester_email' => $this->email,
+                'severity' => $this->priority,
+                'description' => $this->message,
+                'environment' => null,
             ]);
             
             // Send email
